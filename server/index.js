@@ -3,11 +3,11 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
-import multer from "multer";
 import helmet from "helmet";
 import morgan from "morgan";
 import path from "path";
 import { fileURLToPath } from "url";
+import { routing as route } from "./routes/routing.js";
 
 /** CONFIGURATIONS - Middleware and Application Config */
 
@@ -26,19 +26,9 @@ app.use(morgan("common"));
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
-app.use("/assets", express.static(path.join(__dirname, 'public/assets')));
+app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 
-/** FILE STORAGE */
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'public/assets');
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
-  },
-});
-
-const upload = multer({ storage });
+app.use("/", route);
 
 /** MONGOOSE SETUP */
 const PORT = process.env.PORT || 6001;
@@ -49,6 +39,6 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
-    app.listen(PORT, () => console.log(`Starting Server Port: ${PORT}`))
+    app.listen(PORT, () => console.log(`Starting Server Port: ${PORT}`));
   })
   .catch((error) => console.log(`${error} - Did not connect`));
