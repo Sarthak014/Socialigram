@@ -14,13 +14,13 @@ export const register = async (req, res) => {
       picturePath,
       friends,
       location,
-      occupation
+      occupation,
     } = req.body;
 
-    if(!validatePassword(password)) {
+    if (!validatePassword(password)) {
       return res.status(400).json({
-        status: 'invalid',
-        message: 'Invalid password format',
+        status: "invalid",
+        message: "Invalid password format",
       });
     }
 
@@ -28,7 +28,6 @@ export const register = async (req, res) => {
     const passwordHash = await bcrypt.hash(password, genSalt);
 
     // TODO: Needs to check whwther the existing user is getting inserted/updated in DB, which shouldn't happen
-
     try {
       const registerUser = new User({
         firstName,
@@ -38,30 +37,22 @@ export const register = async (req, res) => {
         picturePath,
         friends: friends || [],
         location,
-        occupation
+        occupation,
       });
 
-      await registerUser.save();
+      const savedUser = await registerUser.save();
 
-      res.status(201).json({
-        status: 'success',
-        data: {
-          firstName,
-          lastName,
-          email,
-        },
-      });
+      res.status(201).json(savedUser);
     } catch (error) {
       res.status(503).json({
-        status: 'fail',
-        message: 'Encountered Network Error',
+        status: "fail",
+        message: "Encountered Network Error",
       });
     }
-
   } catch (error) {
     res.status(404).json({
-      status: 'fail',
-      message: err.message,
+      status: "fail",
+      message: error.message,
     });
   }
 };
@@ -71,39 +62,34 @@ export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email: email });
     if (!user) {
       return res.status(400).json({
-        status: 'invalid',
-        message: 'Invalid Credentials',
+        status: "invalid",
+        message: "User does not exist.",
       });
     }
 
     const isPwdValid = await bcrypt.compare(password, user.password);
     if (!isPwdValid) {
       return res.status(400).json({
-        status: 'invalid',
-        message: 'Invalid Credentials',
+        status: "invalid",
+        message: "Invalid credentials.",
       });
     }
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_SIGN, {
-      expiresIn: '3m'
-    });
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_SIGN);
 
     delete user.password;
 
-    res.status(201).json({
-      status: 'success',
-      data: {
-        token,
-        user
-      },
+    res.status(200).json({
+      token,
+      user,
     });
   } catch (error) {
     res.status(404).json({
-      status: 'fail',
-      message: err.message,
+      status: "fail",
+      message: error.message,
     });
   }
 };
