@@ -74,6 +74,7 @@ export const themeSettings = (mode) => {
             },
           }),
     },
+    // thypography definition based on theme
     typography: {
       fontFamily: ["Rubik", "sans-serif"].join(","),
       fontSize: 12,
