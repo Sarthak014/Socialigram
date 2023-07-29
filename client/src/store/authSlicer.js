@@ -3,7 +3,7 @@ import { initialState } from "./states/initialState";
 
 export const authSlice = createSlice({
   name: "auth",
-  initialState: initialState,
+  initialState,
   reducers: {
     setMode: (state) => {
       state.mode = state.mode === "light" ? "dark" : "light";
@@ -39,6 +39,10 @@ export const authSlice = createSlice({
 
       state.posts = updatedPost;
     },
+
+    setLoading: (state, action) => {
+      state.loading = action.payload.loading;
+    },
   },
 });
 
@@ -49,6 +53,7 @@ export const {
   setFriends,
   setPosts,
   updatePost,
+  setLoading,
 } = authSlice.actions;
 
 export default authSlice.reducer;
