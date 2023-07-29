@@ -1,8 +1,13 @@
 {
-    "compilerOptions": {
-        "baseUrl": "src",
-        "target": "es6",
-    },
-    "include": ["src/**/*"],
-    "exclude": ["node_modules"],
+  "compilerOptions": {
+    "baseUrl": "src",
+    "target": "es2016"
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    ".gitignore"
+  ]
 }
