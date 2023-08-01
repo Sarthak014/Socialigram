@@ -1,6 +1,6 @@
 import express from "express";
 import { routePath } from "../Constants/routes.js";
-import { verifyToken } from "../middleware/authorize.js";
+import { verifyToken } from "../Middleware/authorize.js";
 import {
   getUser,
   getUserFriends,

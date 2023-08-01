@@ -6,10 +6,7 @@ export const getUser = async (req, res) => {
 
     const userInfo = await User.findById(id);
 
-    res.status(201).json({
-      status: "success",
-      data: userInfo,
-    });
+    res.status(201).json(userInfo);
   } catch (error) {
     res.status(401).json({
       status: "fail",
@@ -34,10 +31,7 @@ export const getUserFriends = async (req, res) => {
       }
     );
 
-    res.status(201).json({
-      status: "succes",
-      data: formattedFriendsInfo,
-    });
+    res.status(201).json(formattedFriendsInfo);
   } catch (error) {
     res.status(401).json({
       status: "fail",
@@ -56,7 +50,7 @@ export const updateUserFriend = async (req, res) => {
 
     // if friend id exists then remove from friends array/list
     if (userInfo.friends.include(friendId)) {
-      userInfo.friends = userInfo.freinds.filter((id) => id !== friendId);
+      userInfo.friends = userInfo.friends.filter((id) => id !== friendId);
 
       friendInfo.friends = friendInfo.friends.filter(
         (friendId) => friendId !== id
