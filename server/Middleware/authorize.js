@@ -9,7 +9,7 @@ export const verifyToken = async (req, res, next) => {
         }
 
         if (token.startsWith("Bearer ")) {
-            token = token.slice(7, token.length).trimleft();
+            token = token.slice(7, token.length).trim();
         }
 
         const verified = jwt.verify(token, process.env.JWT_SECRET_SIGN);
@@ -18,6 +18,6 @@ export const verifyToken = async (req, res, next) => {
 
         next();
     } catch (error) {
-        res.send(500).json({ error: error.message });
+        res.sendStatus(500).json({ error: error.message });
     }
 };
