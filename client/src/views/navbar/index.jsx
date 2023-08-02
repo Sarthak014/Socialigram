@@ -49,6 +49,8 @@ const Navbar = () => {
             dark={dark}
             isMobileMenuToggled={isMobileMenuToggled}
             setIsMobileMenuToggled={setIsMobileMenuToggled}
+            picturePath={user.picturePath}
+            userId={user._id}
           />
         )
         }
