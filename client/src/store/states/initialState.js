@@ -3,5 +3,5 @@ export const initialState = {
     user: null,
     token: null,
     posts: [],
-    loading: true,
+    loading: false,
 };
