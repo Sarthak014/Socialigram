@@ -75,10 +75,10 @@ const RegisterForm = ({ values, touched, errors, handleBlur, handleChange, setFi
             >
               <input {...getInputProps()} />
               {!values.picture ? (
-                <p style={{ margin: "0", "font-size": "0.8rem" }}>Add Profile Picture Here</p>
+                <p style={{ margin: "0", fontSize: "0.8rem" }}>Add Profile Picture Here</p>
               ) : (
                 <FlexBetween>
-                  <Typography sx={{ "font-size": "0.8rem" }}>{values.picture.name}</Typography>
+                  <Typography sx={{ fontSize: "0.8rem" }}>{values.picture.name}</Typography>
                   <EditOutlined />
                 </FlexBetween>
               )}
