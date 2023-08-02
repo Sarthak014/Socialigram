@@ -5,6 +5,7 @@ import {
   Typography,
   Tooltip,
   Menu,
+  Divider,
 } from "@mui/material";
 import {
   DarkMode,
@@ -16,8 +17,10 @@ import {
   NotificationsNoneOutlined,
 } from "@mui/icons-material";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { setMode, setLogout } from "store/authSlicer";
 import { useState } from "react";
+import UserIamge from "components/UserImage";
 
 const MobileViewNavItems = ({
   mode,
@@ -27,8 +30,11 @@ const MobileViewNavItems = ({
   dark,
   isMobileMenuToggled,
   setIsMobileMenuToggled,
+  picturePath,
+  userId,
 }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // Data
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -42,68 +48,71 @@ const MobileViewNavItems = ({
   };
 
   return (
-    <Box
-      backgroundColor={background}
-      sx={{ flexGrow: 0 }}
-    >
+    <Box backgroundColor={background} sx={{ flexGrow: 0 }}>
       <Tooltip title="Open settings">
-        <IconButton
-          onClick={handleOpenUserMenu}
-          sx={{ p: 0 }}
-        >
-          <AccountCircle sx={{ fontSize: "1.5rem" }} alt={fullName} />
+        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+          {picturePath ? (
+            <UserIamge size="40px" image={picturePath} />
+          ) : (
+            <AccountCircle sx={{ fontSize: "1.5rem" }} alt="Profile" />
+          )}
         </IconButton>
       </Tooltip>
       <Menu
         sx={{
-          mt: '30px',
+          mt: "30px",
           "& .MuiMenu-paper .MuiMenu-list": {
-            pl: "0.5rem",
-            pr: "0.5rem",
+            pl: "0.3rem",
+            pr: "0.3rem",
+
+            "& .MuiMenuItem-root:hover": {
+              backgroundColor: neutralLight,
+            }
           },
         }}
         anchorEl={anchorElUser}
         id="menu-appbar"
         anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
+          vertical: "top",
+          horizontal: "right",
         }}
         keepMounted
         transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
+          vertical: "top",
+          horizontal: "right",
         }}
         open={isMobileMenuToggled && Boolean(anchorElUser)}
         onClose={handleOpenUserMenu}
       >
         <MenuItem>
-          <Typography>{fullName}</Typography>
+          <Typography onClick={() => navigate(`/profile/${userId}`)}>{fullName}</Typography>
         </MenuItem>
+        <Divider />
         <MenuItem>
           <NotificationsNoneOutlined sx={iconSize} />
-          <Typography sx={ menuItemPadding }>Notifications</Typography>
+          <Typography sx={menuItemPadding}>Notifications</Typography>
         </MenuItem>
         <MenuItem>
           <Message sx={iconSize} />
-          <Typography sx={ menuItemPadding }>Messages</Typography>
+          <Typography sx={menuItemPadding}>Messages</Typography>
         </MenuItem>
         <MenuItem>
           <HelpOutline sx={iconSize} />
-          <Typography sx={ menuItemPadding }>Support</Typography>
+          <Typography sx={menuItemPadding}>Support</Typography>
         </MenuItem>
         <MenuItem onClick={() => dispatch(setMode())}>
           <IconButton sx={{ p: "0", ...iconSize }}>
             {mode === "dark" ? (
-              <DarkMode sx={ iconSize } />
+              <DarkMode sx={iconSize} />
             ) : (
               <LightMode sx={{ color: dark, ...iconSize }} />
             )}
           </IconButton>
-          <Typography sx={ menuItemPadding }>Change Mode</Typography>
+          <Typography sx={menuItemPadding}>Change Mode</Typography>
         </MenuItem>
         <MenuItem onClick={() => dispatch(setLogout())}>
           <Logout sx={iconSize} />
-          <Typography sx={ menuItemPadding }>Log Out</Typography>
+          <Typography sx={menuItemPadding}>Log Out</Typography>
         </MenuItem>
       </Menu>
     </Box>
