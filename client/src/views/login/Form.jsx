@@ -1,9 +1,5 @@
 import { useState } from "react";
-import {
-  Box,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
+import { Box, useMediaQuery, useTheme } from "@mui/material";
 import { Formik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -35,7 +31,7 @@ const Form = () => {
 
   // Methods
   const register = async (values, onSubmitProps) => {
-    await dispatch(
+    dispatch(
       setLoading({
         loading: true,
       })
@@ -44,7 +40,7 @@ const Form = () => {
 
     // resetting the form after form submit and api call
     onSubmitProps.resetForm();
-    await dispatch(
+    dispatch(
       setLoading({
         loading: false,
       })
@@ -56,7 +52,7 @@ const Form = () => {
   };
 
   const login = async (values, onSubmitProps) => {
-    await dispatch(
+    dispatch(
       setLoading({
         loading: true,
       })
@@ -67,24 +63,20 @@ const Form = () => {
     onSubmitProps.resetForm();
 
     if (loggedInResponse) {
-      await dispatch(
+      dispatch(
         setLogin({
           user: loggedInResponse.user,
           token: loggedInResponse.token,
-        }),
-        setLoading({
-          loading: false,
         })
       );
 
       navigate("/home");
-    } else {
-      await dispatch(
-        setLoading({
-          loading: false,
-        })
-      );
     }
+    dispatch(
+      setLoading({
+        loading: false,
+      })
+    );
   };
 
   const handleFormSubmit = async (values, onSubmitProps) => {
@@ -97,7 +89,7 @@ const Form = () => {
       <Box
         width={isNonMobileScreens ? "50%" : "93%"}
         p="2rem"
-        m={isLogin ?"14% auto" : "2rem auto"}
+        m={isLogin ? "14% auto" : "2rem auto"}
         borderRadius="1.5rem"
         backgroundColor={palette.background.alt}
       >
