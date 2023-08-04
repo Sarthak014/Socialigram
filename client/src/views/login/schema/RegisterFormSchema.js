@@ -2,13 +2,13 @@ import { object, string } from "yup";
 
 // Register Form Schema
 export const registerSchema = object().shape({
-  firstName: string().required("required"),
-  lastName: string().required("required"),
-  email: string().email("Invalid Email").required("required"),
-  password: string().required("required"),
-  location: string().required("required"),
-  occupation: string().required("required"),
-  picture: string().required("required"),
+  firstName: string().required("Field is Required"),
+  lastName: string().required("Field is Required"),
+  email: string().email("Invalid Email").required("Field is Required"),
+  password: string().required("Field is Required"),
+  location: string().required("Field is Required"),
+  occupation: string().required("Field is Required"),
+  picture: string().required("Field is Required"),
 });
 
 
