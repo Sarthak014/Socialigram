@@ -9,6 +9,7 @@ export const routePath = {
   updateUserFriend: "/:id/:friendId",
 
   // posts or feed
+  createPost: "/create",
   getUserPost: "/:id/posts",
   likeUserPost: "/:id/like",
 };

@@ -13,7 +13,7 @@ export const createPost = async (req, res) => {
       lastName: userInfo.lastName,
       location: userInfo.location,
       description,
-      userPicturePath: user.picturePath,
+      userPicturePath: userInfo.picturePath,
       picturePath,
       likes: {},
       comments: [],
@@ -21,11 +21,7 @@ export const createPost = async (req, res) => {
 
     await newPost.save();
 
-    const post = await Post.find();
-    res.status(201).json({
-      status: "success",
-      data: post,
-    });
+    res.status(201).json("success");
   } catch (error) {
     res.status(409).json({
       status: "failure",
@@ -39,10 +35,7 @@ export const getFeedPosts = async (req, res) => {
   try {
     const post = await Post.find();
 
-    res.status(200).json({
-      status: "success",
-      data: post,
-    });
+    res.status(201).json(post);
   } catch (error) {
     res.status(404).json({
       status: "failure",
@@ -57,10 +50,7 @@ export const getUserPosts = async (req, res) => {
 
     const posts = await Post.find({ userId: id });
 
-    res.status(200).json({
-      status: "success",
-      data: posts,
-    });
+    res.status(200).json(posts);
   } catch (error) {
     res.status(404).json({
       status: "failure",
@@ -96,10 +86,7 @@ export const likePost = async (req, res) => {
       { new: true },
     );
 
-    res.status(201).json({
-      status: "success",
-      data: updatedPost,
-    });
+    res.status(201).json(updatedPost);
   } catch (error) {
     res.status(404).json({
       status: "failure",
