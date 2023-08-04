@@ -18,7 +18,7 @@ const Login = () => {
         </Typography>
       </Box>
 
-      <Loader />
+      <Loader height={"89%"} />
       {/* FORM */}
       <Form />
     </Box>

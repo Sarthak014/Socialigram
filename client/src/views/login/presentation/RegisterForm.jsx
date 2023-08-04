@@ -15,6 +15,7 @@ const RegisterForm = ({ values, touched, errors, handleBlur, handleChange, setFi
         label="First Name"
         name="firstName"
         type="text"
+        required
         value={values.firstName}
         onBlur={handleBlur}
         onChange={handleChange}
@@ -26,6 +27,7 @@ const RegisterForm = ({ values, touched, errors, handleBlur, handleChange, setFi
         label="Last Name"
         name="lastName"
         type="text"
+        required
         value={values.lastName}
         onBlur={handleBlur}
         onChange={handleChange}
@@ -37,6 +39,7 @@ const RegisterForm = ({ values, touched, errors, handleBlur, handleChange, setFi
         label="Location"
         name="location"
         type="text"
+        required
         value={values.location}
         onBlur={handleBlur}
         onChange={handleChange}
@@ -48,6 +51,7 @@ const RegisterForm = ({ values, touched, errors, handleBlur, handleChange, setFi
         label="Occupation"
         name="occupation"
         type="text"
+        required
         value={values.occupation}
         onBlur={handleBlur}
         onChange={handleChange}
