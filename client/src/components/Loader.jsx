@@ -2,7 +2,7 @@ import { Box, Fade } from "@mui/material";
 import { useSelector } from "react-redux";
 import Icon from "assets/Spinner.svg";
 
-const Loader = () => {
+const Loader = ({ height }) => {
   const loading = useSelector((state) => state.loading);
 
   return (
@@ -14,8 +14,8 @@ const Loader = () => {
         sx={{
           position: "absolute",
           width: "100%",
-          height: "89%",
-          opacity: "0.5",
+          height: height,
+          opacity: "0.5 !important",
           backgroundColor: "whitesmoke",
           zIndex: "9999",
         }}
