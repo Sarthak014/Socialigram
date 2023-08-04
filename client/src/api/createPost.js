@@ -1,13 +1,31 @@
 import api from "./axios-helper";
+import { fetchAllPost } from "./fetchAllPost";
 
-export const fetchUserData = async (id, token) => {
+export const createPost = async (id, post, image, token) => {
+  const formData = new FormData();
+
+  formData.append("userId", id);
+  formData.append("description", post);
+
+  if (image) {
+    formData.append("picture", image);
+    formData.append("picturePath", image.name);
+  }
+
   return api({
-    method: "GET",
-    url: `/users/${id}`,
-    headers: { Authorization: `Bearer ${token}` },
+    method: "POST",
+    url: "/posts/create",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "multipart/form-data",
+    },
+    data: formData,
   })
-    .then((res) => {
-      return res.data;
+    .then(async (res) => {
+      if (res.data === "success") {
+        const posts = await fetchAllPost(token);
+        return posts;
+      }
     })
     .catch((error) => {
       if (error.response) {
