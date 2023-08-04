@@ -21,7 +21,7 @@ export const authSlice = createSlice({
 
     setFriends: (state, action) => {
       if (state.user) {
-        state.usr.friends = action.payload.friends;
+        state.user.friends = action.payload.friends;
       } else {
         console.error("User friends does not exists");
       }
@@ -43,6 +43,12 @@ export const authSlice = createSlice({
     setLoading: (state, action) => {
       state.loading = action.payload.loading;
     },
+
+    updateNotification: (state, action) => {
+      const { show, message } = action.payload;
+
+      state.notification = { show, message };
+    },
   },
 });
 
@@ -54,6 +60,7 @@ export const {
   setPosts,
   updatePost,
   setLoading,
+  updateNotification,
 } = authSlice.actions;
 
 export default authSlice.reducer;
