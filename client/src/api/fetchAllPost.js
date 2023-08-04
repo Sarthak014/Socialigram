@@ -1,9 +1,9 @@
 import api from "./axios-helper";
 
-export const fetchUserData = async (id, token) => {
+export const fetchAllPost = async (token) => {
   return api({
     method: "GET",
-    url: `/users/${id}`,
+    url: `/`,
     headers: { Authorization: `Bearer ${token}` },
   })
     .then((res) => {
@@ -28,3 +28,4 @@ export const fetchUserData = async (id, token) => {
       console.error(error.config);
     });
 };
+
